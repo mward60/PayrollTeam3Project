@@ -5,19 +5,21 @@ namespace PayrollTeam3Project
     public class PayrollCalculator
     {
         // Method to calculate gross pay
-        public double CalculateGrossPay(double hourlyRate, double hoursWorked)
+        public decimal CalculateGrossPay(decimal hourlyRate, double hoursWorked)
         {
-            return hourlyRate * hoursWorked;
+            return hourlyRate * (decimal)hoursWorked;
         }
 
-        // Method to calculate total tax
-        public double CalculateTotalTax(double federalTax, double stateTax)
+        // Method to calculate total tax based on gross pay
+        public decimal CalculateTotalTax(decimal grossPay, decimal federalTaxRate, decimal stateTaxRate)
         {
-            return federalTax + stateTax;
+            decimal federalTaxAmount = grossPay * federalTaxRate;
+            decimal stateTaxAmount = grossPay * stateTaxRate;
+            return federalTaxAmount + stateTaxAmount;
         }
 
         // Method to calculate net pay
-        public double CalculateNetPay(double grossPay, double totalTax)
+        public decimal CalculateNetPay(decimal grossPay, decimal totalTax)
         {
             return grossPay - totalTax;
         }

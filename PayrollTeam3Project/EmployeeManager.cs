@@ -1,16 +1,10 @@
-﻿// filename EmployeeManager
-// asgnmnt  Team 3 Project
-// author   Erick Semones
-// date     9-29-2024
-
-/* Manages a list of employees. */
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PayrollTeam3Project // 'public' is not needed before namespace
+namespace PayrollTeam3Project
 {
     public class EmployeeManager
     {
@@ -28,17 +22,15 @@ namespace PayrollTeam3Project // 'public' is not needed before namespace
         // Adds a new employee to the list
         public void AddEmployee(Employee emp)
         {
-            if (emp == null) // is emp null?
+            if (emp == null)
             {
-                MessageBox.Show("Invalid data entered.");
-                return;
+                throw new ArgumentException("Invalid data entered.");
             }
 
-            // does this employee ID already exist?
+            // Check for existing employee ID
             if (employees.Any(e => e.EmployeeID == emp.EmployeeID))
             {
-                MessageBox.Show($"Employee with ID {emp.EmployeeID} already exists.");
-                return;
+                throw new ArgumentException($"Employee with ID {emp.EmployeeID} already exists.");
             }
 
             employees.Add(emp);
@@ -48,18 +40,16 @@ namespace PayrollTeam3Project // 'public' is not needed before namespace
         // Updates the details of an existing employee
         public void UpdateEmployee(Employee emp)
         {
-            if (emp == null) // is emp null?
+            if (emp == null)
             {
-                MessageBox.Show("Invalid data entered.");
-                return;
+                throw new ArgumentException("Invalid data entered.");
             }
 
-            // is the existing employee in the list?
+            // Check if the existing employee is in the list
             var existingEmployee = employees.FirstOrDefault(e => e.EmployeeID == emp.EmployeeID);
             if (existingEmployee == null)
             {
-                MessageBox.Show($"Employee with ID {emp.EmployeeID} not found.");
-                return;
+                throw new ArgumentException($"Employee with ID {emp.EmployeeID} not found.");
             }
 
             // Update the employee details
@@ -71,10 +61,9 @@ namespace PayrollTeam3Project // 'public' is not needed before namespace
         public void DeleteEmployee(int empID)
         {
             var employee = employees.FirstOrDefault(e => e.EmployeeID == empID);
-            if (employee == null) // does the employee exist?
+            if (employee == null)
             {
-                MessageBox.Show($"Employee with ID {empID} not found.");
-                return;
+                throw new ArgumentException($"Employee with ID {empID} not found.");
             }
 
             employees.Remove(employee);
@@ -85,10 +74,9 @@ namespace PayrollTeam3Project // 'public' is not needed before namespace
         public Employee ViewEmployee(int empID)
         {
             var employee = employees.FirstOrDefault(e => e.EmployeeID == empID);
-            if (employee == null) // does the employee exist?
+            if (employee == null)
             {
-                MessageBox.Show($"Employee with ID {empID} not found.");
-                return null;
+                throw new ArgumentException($"Employee with ID {empID} not found.");
             }
 
             return employee; // Return the employee object if found
@@ -97,9 +85,9 @@ namespace PayrollTeam3Project // 'public' is not needed before namespace
         // Retrieves all employees
         public List<Employee> GetAllEmployees()
         {
-            if (employees.Count == 0) // is the list empty?
+            if (!employees.Any())
             {
-                MessageBox.Show("No employees found.");
+                return new List<Employee>(); // Return an empty list if none are found
             }
 
             return employees; // Return the list of employees
