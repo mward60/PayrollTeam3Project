@@ -15,11 +15,11 @@ namespace PayrollTeam3Project
         private decimal netPay;
         private double hoursWorked;
         internal static string Text;
-        private const decimal MIN_RATE = 7.25; // minimum wage is $7.25 per hour
-        private const decimal MIN_FED_TAX = 0.10; // minimum federal tax rate is 10%
-        private const decimal MIN_STATE_TAX = 0.0305; // minimum IN state tax is 3.05%
-        private const decimal MAX_TAX_RATE = 1.00; // tax rate limit is at 100%
-        private const double MAX_HOURS_WORKED = 40; // legal limit before overtime rates apply
+        private const decimal MIN_RATE = 7.25M; // minimum wage is $7.25 per hour
+        private const decimal MIN_FED_TAX = 0.10M; // minimum federal tax rate is 10%
+        private const decimal MIN_STATE_TAX = 0.0305M; // minimum IN state tax is 3.05%
+        private const decimal MAX_TAX_RATE = 1.00M; // tax rate limit is at 100%
+        
 
         // constructor
         public Employee(int id, string name, decimal hourlyRate,
@@ -92,13 +92,13 @@ namespace PayrollTeam3Project
             get => federalTax;
             private set
             {
-                if (value >= MIN_FED_TAX && value <= MAX_TAX_RATE)
+                if (value >= MIN_FED_TAX1 && value <= MAX_TAX_RATE)
                 {
                     federalTax = value;
                 }
                 else
                 {
-                    throw new ArgumentException($"Federal tax must be between {MIN_FED_TAX} and {MAX_TAX_RATE}.");
+                    throw new ArgumentException($"Federal tax must be between {MIN_FED_TAX1} and {MAX_TAX_RATE}.");
                 }
             }
         }
@@ -140,6 +140,8 @@ namespace PayrollTeam3Project
         public static decimal M { get; private set; }
 
         public static decimal MIN_RATE1 => MIN_RATE;
+
+        public static decimal MIN_FED_TAX1 => MIN_FED_TAX;
 
         // methods
         // calculate gross and net pay
