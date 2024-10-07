@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace PayrollTeam3Project
 {
@@ -22,6 +22,11 @@ namespace PayrollTeam3Project
         public decimal CalculateNetPay(decimal grossPay, decimal totalTax)
         {
             return grossPay - totalTax;
+        }
+
+        internal static double CalculateTotalTax(decimal federalTax, decimal stateTax)
+        {
+            throw new NotImplementedException();
         }
     }
 }
